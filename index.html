@@ -3,20 +3,582 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMI - Shresth Masala Industry | Quality Spices</title>
-    <link rel="stylesheet" href="style.css">
+    <title>VSI - Vahin Sweets Industry | Glazed & Glossy</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif; /* Cleaner font for modern look */
+        }
+
+        :root {
+            --primary: #ff3366; /* Neon Red/Pink */
+            --primary-glow: rgba(255, 51, 102, 0.6);
+            --accent: #fff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --card-hover: rgba(255, 255, 255, 0.2);
+            --text-main: #ffffff;
+            --text-muted: #ffebee;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-main);
+            /* Deep Red Gradient Background */
+            background: linear-gradient(135deg, #2b0510 0%, #850e26 50%, #2b0510 100%);
+            background-attachment: fixed; /* Keeps the background still while scrolling */
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 20px;
+        }
+        
+        .glossy-text {
+            background: linear-gradient(to bottom, #fff 0%, #ffcdd2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(43, 5, 16, 0.7); /* Darker glass for nav */
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            /* Shiny metallic red effect */
+            background: linear-gradient(45deg, #ff3366, #ff99aa, #ff3366);
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+
+        .logo .tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--primary);
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-menu a:hover::after, .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-menu a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Abstract Red Orbs for Background */
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--primary) 0%, transparent 70%);
+            opacity: 0.4;
+            filter: blur(80px);
+            z-index: -1;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -10%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, #700b1d 0%, transparent 70%);
+            opacity: 0.6;
+            filter: blur(100px);
+            z-index: -1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            padding: 3rem;
+            /* Glass Card for Hero Content */
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .hero-content h2 {
+            font-size: 4rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.1;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, #ffcdd2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px rgba(255, 51, 102, 0.5));
+        }
+
+        .hero-content .motto {
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--primary-glow);
+        }
+
+        .hero-content .description {
+            font-size: 1.2rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            color: var(--text-muted);
+        }
+
+        /* Glazed Button */
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary {
+            background: rgba(255, 51, 102, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 0 0 20px rgba(255, 51, 102, 0.4), inset 0 0 20px rgba(255, 51, 102, 0.2);
+        }
+        
+        /* High Gloss shine effect on button */
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--primary);
+            box-shadow: 0 0 40px var(--primary);
+            border-color: transparent;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--text-muted);
+            color: var(--text-muted);
+        }
+        
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 0 20px rgba(255,255,255,0.5);
+        }
+
+        /* Common Section Styles */
+        section {
+            padding: 6rem 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 4rem;
+            color: white;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            margin: 10px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* About Section */
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .about-text strong {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .about-stats {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            min-width: 300px;
+        }
+
+        .stat {
+            padding: 2.5rem;
+            text-align: center;
+            transition: transform 0.3s;
+            /* Glass properties applied via utility class in HTML */
+        }
+
+        .stat:hover {
+            transform: translateY(-10px) rotate(2deg);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+
+        .stat h3 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px var(--primary);
+        }
+        
+        .stat p {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Products Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .product-card {
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            /* Gradient overlay for glossy look */
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+        }
+        
+        /* Shine effect on card top */
+        .product-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
+            pointer-events: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), inset 0 0 20px rgba(255,255,255,0.1);
+            border-color: rgba(255, 51, 102, 0.5);
+        }
+
+        .product-icon {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-icon {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .product-card h3 {
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-desc {
+            font-size: 0.95rem;
+            margin-bottom: 2rem !important;
+            min-height: 50px;
+            opacity: 0.8;
+        }
+
+        .availability-phone, .availability-amazon {
+            font-weight: 700;
+            font-size: 0.9rem;
+            padding: 0.8rem;
+            border-radius: 10px;
+            display: inline-block;
+            width: 100%;
+            transition: 0.3s;
+        }
+        
+        .availability-phone { 
+            background: rgba(255, 51, 102, 0.15); 
+            color: #ff99aa;
+            border: 1px solid rgba(255, 51, 102, 0.3);
+        }
+        
+        .availability-amazon { 
+            background: rgba(255, 153, 0, 0.15); 
+            color: #ffcc80; 
+            border: 1px solid rgba(255, 153, 0, 0.3);
+        }
+        
+        .product-card:hover .availability-phone {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px var(--primary);
+        }
+
+        .view-all {
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Why Choose Us */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit {
+            text-align: center;
+            padding: 3rem 2rem;
+            /* Glass style via class */
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: 0.3s;
+        }
+        
+        .benefit:hover {
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 30px rgba(255, 51, 102, 0.3);
+        }
+
+        .benefit h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.4);
+        }
+        
+        .benefit p {
+            color: var(--text-muted);
+        }
+
+        /* Contact Section */
+        .contact-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            padding: 4rem;
+        }
+
+        .contact-info, .contact-message {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-info h3 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: var(--primary);
+            font-weight: 700;
+            text-shadow: 0 0 5px rgba(255, 51, 102, 0.5);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .social-icon {
+            padding: 12px 25px;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.2);
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: var(--primary);
+            box-shadow: 0 0 20px var(--primary);
+            transform: translateY(-3px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            color: var(--text-muted);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+            .hero-content h2 {
+                font-size: 2.8rem;
+            }
+            .about-content {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <h1>SMI</h1>
-                <p class="tagline">Shresth Masala Industry</p>
+                <h1>VSI</h1>
+                <p class="tagline">Vahin Sweets Industry</p>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="products.html">Products</a></li>
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="https://vahint.github.io/VMIsweets/products.html" >Products</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -26,35 +588,39 @@
     <!-- Hero Section -->
     <header class="hero">
         <div class="hero-content">
-            <h2>Shresth Masala Industry</h2>
-            <p class="motto">"Quality over Quantity"</p>
-            <p class="description">Premium spices and masalas for authentic Indian cuisine</p>
-            <a href="products.html" class="btn btn-primary">Explore Our Products</a>
+            <h2>Vahin Sweets Industry</h2>
+            <p class="motto">"Sweetness over malasa"</p>
+            <p class="description">Premium chocolates, candies, and treats. Experience the ultimate sugar rush with our glazed perfection.</p>
+            <a href="#products" class="btn btn-primary">Taste the Magic (we got it from the oort clod.)</a>
         </div>
     </header>
 
     <!-- About Section -->
     <section id="about" class="about">
         <div class="container">
-            <h2>About SMI</h2>
+            <h2>About VSI</h2>
             <div class="about-content">
-                <div class="about-text">
-                    <p>Welcome to Shresth Masala Industry (SMI), your trusted source for premium quality spices and masalas. We believe in one principle above all else: <strong>Quality over Quantity.</strong></p>
-                    <p>Every product we offer is carefully selected and processed to ensure the highest standards of purity, aroma, and flavor. Our commitment to excellence makes SMI the preferred choice for discerning home cooks and professional chefs alike.</p>
-                    <p>With decades of expertise in the spice industry, we bring traditional masala-making techniques combined with modern quality control to deliver products that enhance every dish.</p>
+                <div class="about-text glass" style="padding: 2rem;">
+                    <p>Welcome to Vahin Sweets Industry (VSI), your new favorite plug for premium quality chocolates and confectionery. We believe in one principle above all else: <strong>Quality over Quantity.</strong></p>
+                    <p>Every chocolate bar and gummy bear we offer is crafted to satisfy your cravings. Our commitment to excellence makes VSI the Goated choice for anyone with a sweet tooth, from casual snackers to dessert connoisseurs.</p>
+                    <p>With years of expertise in the candy game, we bring traditional recipes combined with modern flavors to deliver products that honestly slap.</p>
                 </div>
                 <div class="about-stats">
-                    <div class="stat">
+                    <div class="stat glass">
                         <h3>100%</h3>
-                        <p>Natural Ingredients</p>
+                        <p>Real Cocoa</p>
                     </div>
-                    <div class="stat">
-                        <h3>Pure</h3>
-                        <p>No Additives</p>
+                    <div class="stat glass">
+                        <h3>Yummy</h3>
+                        <p>No Bad Vibes</p>
                     </div>
-                    <div class="stat">
+                    <div class="stat glass">
                         <h3>Fresh</h3>
-                        <p>Authentic Taste</p>
+                        <p>Daily Batches</p>
+                    </div>
+                    <div class="stat glass">
+                        <h3>Sweet</h3>
+                        <p>Top Tier Taste</p>
                     </div>
                 </div>
             </div>
@@ -62,55 +628,55 @@
     </section>
 
     <!-- Featured Products Section -->
-    <section class="featured-products">
+    <section id="products" class="featured-products">
         <div class="container">
-            <h2>Our Premium Range</h2>
+            <h2>Our Sweet Range</h2>
             <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-icon">🌾</div>
-                    <h3>Haldi</h3>
-                    <p>Turmeric Powder</p>
-                    <p class="product-desc">Pure, aromatic turmeric powder perfect for dal, rice, and curries</p>
-                    <p class="availability-phone">📞 Custom order via phone</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🍫</div>
+                    <h3>Dark Fantasy</h3>
+                    <p>Dark Chocolate</p>
+                    <p class="product-desc">Rich 70% dark chocolate that melts in your mouth, not in your hands.</p>
+                    <p class="availability-phone">Found somewhere in the oort cloud.</p>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">🌿</div>
-                    <h3>Dhaniya</h3>
-                    <p>Coriander Powder</p>
-                    <p class="product-desc">Freshly ground coriander with authentic Indian flavor</p>
-                    <p class="availability-amazon">🛒 Available on Amazon</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🧸</div>
+                    <h3>Gummy Gang</h3>
+                    <p>Fruit Gummies</p>
+                    <p class="product-desc">Chewy, fruity, and absolutely bussin. Perfect for movie nights.</p>
+                    <p class="availability-amazon">Found somewhere in the oort cloud.</p>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">🌶️</div>
-                    <h3>Lal Mirch</h3>
-                    <p>Red Chilli Powder</p>
-                    <p class="product-desc">Premium red chilli powder with perfect heat and color</p>
-                    <p class="availability-phone">📞 Custom order via phone</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🍪</div>
+                    <h3>Choco Chip</h3>
+                    <p>Premium Cookies</p>
+                    <p class="product-desc">Crunchy on the outside, soft on the inside. Basically a hug in food form.</p>
+                    <p class="availability-phone">Found somewhere in the oort cloud.</p>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">✨</div>
-                    <h3>Jira</h3>
-                    <p>Cumin Powder</p>
-                    <p class="product-desc">Aromatic cumin powder for enhanced flavor in every dish</p>
-                    <p class="availability-phone">📞 Custom order via phone</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🍬</div>
+                    <h3>Toffee Blast</h3>
+                    <p>Caramel Chews</p>
+                    <p class="product-desc">Sticky, sweet caramel that lasts forever. Absolute fire.</p>
+                    <p class="availability-phone">Found somewhere in the oort cloud.</p>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">⚫</div>
-                    <h3>Kali Marich</h3>
-                    <p>Black Pepper</p>
-                    <p class="product-desc">Freshly ground black pepper with natural pungency</p>
-                    <p class="availability-phone">📞 Custom order via phone</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🍩</div>
+                    <h3>Glazed Rings</h3>
+                    <p>Mini Donuts</p>
+                    <p class="product-desc">Freshly baked mini donuts with a sugar glaze that shines brighter than my future.</p>
+                    <p class="availability-phone">Found somewhere in the oort cloud.</p>
                 </div>
-                <div class="product-card">
-                    <div class="product-icon">🎯</div>
-                    <h3>Mix Masala</h3>
-                    <p>Spice Blend</p>
-                    <p class="product-desc">Our signature blend of premium spices for versatile cooking</p>
-                    <p class="availability-phone">📞 Custom order via phone</p>
+                <div class="product-card glass">
+                    <div class="product-icon">🍭</div>
+                    <h3>Swirl Pops</h3>
+                    <p>Giant Lollipops</p>
+                    <p class="product-desc">Massive colorful lollipops that last for hours. The ultimate flex.</p>
+                    <p class="availability-phone">Found somewhere in the oort cloud.</p>
                 </div>
             </div>
             <div class="view-all">
-                <a href="products.html" class="btn btn-secondary">View All Products</a>
+                <a href="#" class="btn btn-secondary">View All Sweets</a>
             </div>
         </div>
     </section>
@@ -118,23 +684,23 @@
     <!-- Why Choose Us Section -->
     <section class="why-choose-us">
         <div class="container">
-            <h2>Why Choose SMI?</h2>
+            <h2>Why VSI is the G.O.A.T?</h2>
             <div class="benefits-grid">
-                <div class="benefit">
-                    <h3>🏆 Premium Quality</h3>
-                    <p>Handpicked ingredients processed with care and precision</p>
+                <div class="benefit glass">
+                    <h3>🏆 Premium Glaze</h3>
+                    <p>Our packaging and taste have unmatched Glazing.</p>
                 </div>
-                <div class="benefit">
-                    <h3>🌱 100% Natural</h3>
-                    <p>No additives, preservatives, or artificial ingredients</p>
+                <div class="benefit glass">
+                    <h3>🌱 100% Valid</h3>
+                    <p>Real ingredients, no fake stuff. We keep it 100.</p>
                 </div>
-                <div class="benefit">
-                    <h3>🔬 Quality Tested</h3>
-                    <p>Every batch undergoes rigorous quality control testing</p>
+                <div class="benefit glass">
+                    <h3>🔬 Lab Checked</h3>
+                    <p>Every batch passes the Lab check before shipping.</p>
                 </div>
-                <div class="benefit">
-                    <h3>🚚 Fresh Delivery</h3>
-                    <p>Carefully packaged to maintain freshness and aroma</p>
+                <div class="benefit glass">
+                    <h3>🚚 Fast As hell!</h3>
+                    <p>Delivery faster than you can say "Mom, Im hungy😫".</p>
                 </div>
             </div>
         </div>
@@ -143,23 +709,23 @@
     <!-- Contact Section -->
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
-            <div class="contact-content">
+            <h2>Slide Into Our DMs</h2>
+            <div class="contact-content glass">
                 <div class="contact-info">
                     <h3>Contact Information</h3>
-                    <p><strong>Company:</strong> Shresth Masala Industry</p>
-                    <p><strong>Email:</strong> <a href="mailto:info@smimasala.com">info@smimasala.com</a></p>
-                    <p><strong>Phone:</strong> <a href="tel:+919876543210">+91 98765 43210</a></p>
-                    <p><strong>Find Us Online:</strong></p>
+                    <p><strong>Company:</strong> Vahin Sweets Industry</p>
+                    <p><strong>Email:</strong> <a href="https://www.stalkingawareness.org/what-to-do-if-you-are-being-stalked/">info@VSIsweets.com</a></p>
+                    <p><strong>Phone:</strong> <a href="https://www.stalkingawareness.org/what-to-do-if-you-are-being-stalked/">get it here.</a></p>
+                    <p><strong>Stalk Us Online:</strong></p>
                     <div class="social-links">
-                        <a href="#" class="social-icon">Facebook</a>
-                        <a href="#" class="social-icon">Instagram</a>
-                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="https://www.stalkingawareness.org/what-to-do-if-you-are-being-stalked/" class="social-icon">TikTok</a>
+                        <a href="https://www.stalkingawareness.org/what-to-do-if-you-are-being-stalked/" class="social-icon">Insta</a>
+                        <a href="https://www.stalkingawareness.org/what-to-do-if-you-are-being-stalked/" class="social-icon">X</a>
                     </div>
                 </div>
                 <div class="contact-message">
-                    <p>Have questions about our products? Want to place a bulk order? We'd love to hear from you!</p>
-                    <p>Visit our products page to see where you can purchase SMI spices.</p>
+                    <p>Got cravings? Need a bulk order for the squad? We'd love to hear from you because we live for the sugar rush!</p>
+                    <p>Check the products page to see where you can cop VSI sweets.</p>
                 </div>
             </div>
         </div>
@@ -168,7 +734,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Shresth Masala Industry (SMI). All rights reserved. | Quality over Quantity.</p>
+            <p>&copy; 2025 Vahin Sweets Industry (VSI). All rights reserved. | My factory smells like sugar heaven, no cap.</p>
         </div>
     </footer>
 </body>
