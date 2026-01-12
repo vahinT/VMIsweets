@@ -3,22 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Our Products - SMI Masala</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Our Sweets - VSI | Glazed & Glossy</title>
+    <style>
+        /* Reset & Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', 'Segoe UI', sans-serif;
+        }
+
+        :root {
+            --primary: #ff3366; /* Neon Red/Pink */
+            --primary-glow: rgba(255, 51, 102, 0.6);
+            --accent: #fff;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --text-main: #ffffff;
+            --text-muted: #ffebee;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-main);
+            /* Deep Red Gradient Background */
+            background: linear-gradient(135deg, #2b0510 0%, #850e26 50%, #2b0510 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* Glassmorphism Utilities */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 20px;
+        }
+
+        /* Navigation */
+        .navbar {
+            background: rgba(43, 5, 16, 0.7);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, #ff3366, #ff99aa, #ff3366);
+            background-size: 200% auto;
+            animation: shine 3s linear infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes shine { to { background-position: 200% center; } }
+
+        .logo .tagline {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .nav-menu { display: flex; gap: 2rem; }
+
+        .nav-menu a {
+            font-weight: 600;
+            color: var(--text-muted);
+            transition: all 0.3s;
+            position: relative;
+            padding: 5px 10px;
+        }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            background: var(--primary);
+            transition: all 0.3s;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-menu a:hover::after, .nav-menu a.active::after {
+            width: 100%;
+            left: 0;
+        }
+
+        .nav-menu a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        /* Page Header */
+        .page-header {
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+            position: relative;
+        }
+
+        .page-header h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 20px var(--primary);
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Products Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .products-section { padding: 4rem 0; }
+
+        .product-detail {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            padding: 3rem;
+            transition: transform 0.3s;
+        }
+
+        .product-detail:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 51, 102, 0.4);
+        }
+
+        .product-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+
+        .image-placeholder {
+            font-size: 8rem;
+            filter: drop-shadow(0 0 30px rgba(255, 51, 102, 0.4));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .product-info { flex: 2; }
+
+        .product-info h2 {
+            font-size: 2.5rem;
+            color: white;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .product-category {
+            color: var(--primary);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px rgba(255, 51, 102, 0.4);
+        }
+
+        .product-description {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .product-benefits h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .product-benefits ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-benefits li {
+            position: relative;
+            padding-left: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .product-benefits li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            font-size: 0.8rem;
+        }
+
+        .quality-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+
+        .availability-note {
+            font-weight: 700;
+            color: #ff99aa;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-amazon {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff9900, #ffcc80);
+            color: #000;
+            font-weight: 700;
+            padding: 10px 25px;
+            border-radius: 50px;
+            margin-top: 1rem;
+            transition: transform 0.3s;
+        }
+
+        .btn-amazon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 153, 0, 0.4);
+        }
+
+        /* Quality Section */
+        .quality-section {
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .quality-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: white;
+        }
+
+        .quality-points {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .quality-point {
+            padding: 2rem;
+            transition: 0.3s;
+        }
+
+        .quality-point:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        .quality-point h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .quality-point p { color: var(--text-muted); }
+
+        /* Footer */
+        .footer {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            color: var(--text-muted);
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-menu { display: none; }
+            .product-detail {
+                flex-direction: column;
+                text-align: center;
+                gap: 2rem;
+            }
+            .product-benefits ul { text-align: left; }
+            .page-header h1 { font-size: 2.5rem; }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <h1>SMI</h1>
-                <p class="tagline">Shresth Masala Industry</p>
+                <h1>VSI</h1>
+                <p class="tagline">Vahin Sweets Industry</p>
             </div>
             <ul class="nav-menu">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="products.html" class="active">Products</a></li>
-                <li><a href="index.html#about">About</a></li>
-                <li><a href="index.html#contact">Contact</a></li>
+                <li><a href="https://vahint.github.io/VMIsweets/index.html">Home</a></li>
+                <li><a href="https://vahint.github.io/VMIsweets/products.html" class="active">Products</a></li>
+                <li><a href="https://vahint.github.io/VMIsweets/index.html#about">About</a></li>
+                <li><a href="https://vahint.github.io/VMIsweets/index.html#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -26,8 +347,8 @@
     <!-- Page Header -->
     <section class="page-header">
         <div class="container">
-            <h1>Our Premium Products</h1>
-            <p>Quality Over Quantity - Every Product Carefully Crafted</p>
+            <h1>Our Sweet Collection</h1>
+            <p>Quality Over Quantity - Every Treat Carefully Crafted</p>
         </div>
     </section>
 
@@ -35,221 +356,186 @@
     <section class="products-section">
         <div class="container">
             <div class="products-list">
-                <!-- Haldi -->
-                <div class="product-detail">
+                
+                <!-- Dark Fantasy -->
+                <div class="product-detail glass">
                     <div class="product-image">
-                        <div class="image-placeholder">🌾</div>
+                        <div class="image-placeholder">🍫</div>
                     </div>
                     <div class="product-info">
-                        <h2>Haldi (Turmeric Powder)</h2>
-                        <p class="product-category">Spice Category: Turmeric</p>
+                        <h2>Dark Fantasy</h2>
+                        <p class="product-category">Sweet Category: Dark Chocolate</p>
                         <p class="product-description">
-                            Our premium Haldi is sourced from the finest turmeric farms and ground to perfection. 
-                            Known for its golden color, earthy aroma, and warm flavor, it's an essential ingredient 
-                            in Indian cooking. Rich in curcumin, it's not just a spice but also valued for its 
-                            wellness properties.
+                            Our premium Dark Fantasy is sourced from the finest cocoa beans and processed to perfection. 
+                            Known for its intense flavor, smooth texture, and rich aroma, it's the ultimate indulgence for 
+                            true chocolate lovers. Rich in antioxidants, it's a guilt-free pleasure.
                         </p>
                         <div class="product-benefits">
-                            <h3>Uses:</h3>
+                            <h3>Vibes:</h3>
                             <ul>
-                                <li>Dal preparations</li>
-                                <li>Rice dishes and pulao</li>
-                                <li>Curries and gravies</li>
-                                <li>Traditional Indian beverages</li>
-                                <li>Cooking vegetables</li>
+                                <li>Late night snacking</li>
+                                <li>Dessert toppings</li>
+                                <li>Gifting the squad</li>
+                                <li>Stress relief</li>
+                                <li>Baking brownies</li>
                             </ul>
                         </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
+                        <p class="quality-badge">✓ 70% Cocoa • ✓ No Additives • ✓ Melt-in-mouth</p>
                         <p class="availability-note">📞 Available for custom order via phone</p>
                     </div>
                 </div>
 
-                <!-- Dhaniya -->
-                <div class="product-detail">
+                <!-- Gummy Gang -->
+                <div class="product-detail glass">
                     <div class="product-image">
-                        <div class="image-placeholder">🌿</div>
+                        <div class="image-placeholder">🧸</div>
                     </div>
                     <div class="product-info">
-                        <h2>Dhaniya (Coriander Powder)</h2>
-                        <p class="product-category">Spice Category: Coriander</p>
+                        <h2>Gummy Gang</h2>
+                        <p class="product-category">Sweet Category: Fruit Gummies</p>
                         <p class="product-description">
-                            Our Dhaniya is freshly ground from premium coriander seeds, delivering the authentic 
-                            taste of Indian cuisine. With its citrusy undertones and aromatic warmth, it's perfect 
-                            for adding depth to any dish. Each batch is carefully processed to maintain maximum flavor 
-                            and aroma.
+                            Our Gummy Gang bears are soft, chewy, and packed with real fruit juice. 
+                            Delivering authentic fruity bursts with every bite, these little guys are absolutely bussin.
+                            Perfect for movie nights or when you just need a sugar hit.
                         </p>
                         <div class="product-benefits">
-                            <h3>Uses:</h3>
+                            <h3>Vibes:</h3>
                             <ul>
-                                <li>Curries and masalas</li>
-                                <li>Vegetable dishes</li>
-                                <li>Soups and broths</li>
-                                <li>Marinades</li>
-                                <li>Spice blends</li>
+                                <li>Movie marathons</li>
+                                <li>Road trips</li>
+                                <li>Sharing (or not)</li>
+                                <li>Party favors</li>
+                                <li>Instant mood boost</li>
                             </ul>
                         </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
-                        <p class="availability-badge amazon">🛒 Available on Amazon</p>
-                        <a href="https://www.amazon.in/S-M-I-Coriander-Cooking-Natural-Authentic/dp/B0DW41CJJJ/" target="_blank" class="btn btn-amazon">Buy on Amazon</a>
+                        <p class="quality-badge">✓ Real Fruit Juice • ✓ Gluten Free • ✓ Chewy AF</p>
+                        <a href="#" class="btn-amazon">Buy on Amazon</a>
                     </div>
                 </div>
 
-                <!-- Lal Mirch -->
-                <div class="product-detail">
+                <!-- Choco Chip -->
+                <div class="product-detail glass">
                     <div class="product-image">
-                        <div class="image-placeholder">🌶️</div>
+                        <div class="image-placeholder">🍪</div>
                     </div>
                     <div class="product-info">
-                        <h2>Lal Mirch (Red Chilli Powder)</h2>
-                        <p class="product-category">Spice Category: Chilli</p>
+                        <h2>Choco Chip</h2>
+                        <p class="product-category">Sweet Category: Cookies</p>
                         <p class="product-description">
-                            Premium red chilli powder that brings both color and heat to your kitchen. Made from 
-                            sun-dried red chilies, it offers the perfect balance of spice and flavor. Whether you 
-                            prefer mild or fiery dishes, our carefully sourced chilli powder delivers consistent 
-                            quality every time.
+                            Premium cookies loaded with chocolate chips that bring both crunch and meltiness.
+                            Baked to golden perfection, they offer the perfect balance of buttery dough and rich chocolate.
+                            Whether you dunk them or munch them dry, they slay every time.
                         </p>
                         <div class="product-benefits">
-                            <h3>Uses:</h3>
+                            <h3>Vibes:</h3>
                             <ul>
-                                <li>Curries and gravies</li>
-                                <li>Spice blends</li>
-                                <li>Vegetable dishes</li>
-                                <li>Seasoning for snacks</li>
-                                <li>Pickles and preserves</li>
+                                <li>Coffee companion</li>
+                                <li>Midnight snack</li>
+                                <li>Ice cream sandwiches</li>
+                                <li>Picnics</li>
+                                <li>Comfort food</li>
                             </ul>
                         </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
+                        <p class="quality-badge">✓ Fresh Baked • ✓ Butter Rich • ✓ Extra Chips</p>
                         <p class="availability-note">📞 Available for custom order via phone</p>
                     </div>
                 </div>
 
-                <!-- Jira -->
-                <div class="product-detail">
+                <!-- Toffee Blast -->
+                <div class="product-detail glass">
                     <div class="product-image">
-                        <div class="image-placeholder">✨</div>
+                        <div class="image-placeholder">🍬</div>
                     </div>
                     <div class="product-info">
-                        <h2>Jira (Cumin Powder)</h2>
-                        <p class="product-category">Spice Category: Cumin</p>
+                        <h2>Toffee Blast</h2>
+                        <p class="product-category">Sweet Category: Caramel</p>
                         <p class="product-description">
-                            Aromatic and warming, our Jira powder is ground from premium cumin seeds. With its 
-                            distinctive nutty flavor and earthy aroma, it's a versatile spice that enhances 
-                            everything from simple rice to elaborate curries. A staple in Indian kitchens for 
-                            centuries, it's known for its digestive properties as well.
+                            Sticky, creamy, and totally addictive. Our Toffee Blast is made from caramelized sugar and 
+                            fresh butter. It has that distinctive rich flavor that lasts forever. A staple in pockets 
+                            everywhere, it's the GOAT of chewy candies.
                         </p>
                         <div class="product-benefits">
-                            <h3>Uses:</h3>
+                            <h3>Vibes:</h3>
                             <ul>
-                                <li>Rice and grain dishes</li>
-                                <li>Curries and dals</li>
-                                <li>Bread seasoning</li>
-                                <li>Vegetable preparations</li>
-                                <li>Tempering and tadka</li>
+                                <li>Long lasting flavor</li>
+                                <li>Sugar cravings</li>
+                                <li>Desk snacks</li>
+                                <li>Halloween treats</li>
+                                <li>Nostalgia trips</li>
                             </ul>
                         </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
+                        <p class="quality-badge">✓ Real Butter • ✓ No Preservatives • ✓ Sticky Goodness</p>
                         <p class="availability-note">📞 Available for custom order via phone</p>
                     </div>
                 </div>
 
-                <!-- Kali Marich -->
-                <div class="product-detail">
+                <!-- Glazed Rings -->
+                <div class="product-detail glass">
                     <div class="product-image">
-                        <div class="image-placeholder">⚫</div>
+                        <div class="image-placeholder">🍩</div>
                     </div>
                     <div class="product-info">
-                        <h2>Kali Marich (Black Pepper)</h2>
-                        <p class="product-category">Spice Category: Pepper</p>
+                        <h2>Glazed Rings</h2>
+                        <p class="product-category">Sweet Category: Donuts</p>
                         <p class="product-description">
-                            The "King of Spices," our Kali Marich is freshly ground black pepper that adds 
-                            pungency and warmth to any dish. With its sharp, biting flavor and complex notes, 
-                            it's essential for both savory and sweet preparations. Our black pepper is sourced 
-                            from the finest plantations to ensure superior quality.
+                            The "King of Rings," our Glazed Donuts are fried fresh and coated in a shiny sugar glaze.
+                            With a fluffy texture and a sweetness that hits different, they are essential for any breakfast
+                            or cheat day. Sourced from our own bakery to ensure maximum freshness.
                         </p>
                         <div class="product-benefits">
-                            <h3>Uses:</h3>
+                            <h3>Vibes:</h3>
                             <ul>
-                                <li>All curries and gravies</li>
-                                <li>Seasoning for soups</li>
-                                <li>Seasoning for meats and vegetables</li>
-                                <li>Pickling and preserving</li>
-                                <li>Traditional remedies</li>
+                                <li>Breakfast of champions</li>
+                                <li>Office parties</li>
+                                <li>Cheat days</li>
+                                <li>Coffee dunking</li>
+                                <li>Pure happiness</li>
                             </ul>
                         </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
-                    </div>
-                </div>
-
-                <!-- Mix Masala -->
-                <div class="product-detail">
-                    <div class="product-image">
-                        <div class="image-placeholder">🎯</div>
-                    </div>
-                    <div class="product-info">
-                        <h2>Mix Masala (Spice Blend)</h2>
-                        <p class="product-category">Spice Category: Blend</p>
-                        <p class="product-description">
-                            Our signature Mix Masala is a carefully balanced blend of multiple premium spices, 
-                            crafted to bring authentic Indian flavors to your kitchen. This versatile masala 
-                            is perfect for those moments when you want complex, layered flavors without the hassle 
-                            of combining multiple ingredients. Each blend is made in small batches to ensure freshness.
-                        </p>
-                        <div class="product-benefits">
-                            <h3>Uses:</h3>
-                            <ul>
-                                <li>Quick curry preparations</li>
-                                <li>Vegetable dishes</li>
-                                <li>Snacks and appetizers</li>
-                                <li>Seasoning for gravies</li>
-                                <li>All-purpose cooking</li>
-                            </ul>
-                        </div>
-                        <p class="quality-badge">✓ 100% Pure • ✓ No Additives • ✓ Freshly Ground</p>
+                        <p class="quality-badge">✓ Freshly Fried • ✓ Shiny Glaze • ✓ Fluffy</p>
                         <p class="availability-note">📞 Available for custom order via phone</p>
                     </div>
                 </div>
+
+                <!-- Swirl Pops -->
+                <div class="product-detail glass">
+                    <div class="product-image">
+                        <div class="image-placeholder">🍭</div>
+                    </div>
+                    <div class="product-info">
+                        <h2>Swirl Pops</h2>
+                        <p class="product-category">Sweet Category: Lollipops</p>
+                        <p class="product-description">
+                            Our signature Swirl Pops are a colorful blend of fruit flavors, crafted to look as good as 
+                            they taste. This giant lollipop is perfect for those moments when you want a treat that 
+                            lasts for hours. Each pop is hand-coiled to ensure maximum aesthetic.
+                        </p>
+                        <div class="product-benefits">
+                            <h3>Vibes:</h3>
+                            <ul>
+                                <li>Photo ops</li>
+                                <li>Theme parks</li>
+                                <li>Kids parties</li>
+                                <li>Gifts</li>
+                                <li>Silent snacking</li>
+                            </ul>
+                        </div>
+                        <p class="quality-badge">✓ Hand Made • ✓ Fruit Flavors • ✓ Massive Size</p>
+                        <p class="availability-note">📞 Available for custom order via phone</p>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
     <!-- Quality Assurance Section -->
-    <section class="quality-section">
-        <div class="container">
-            <h2>Our Quality Promise</h2>
-            <div class="quality-points">
-                <div class="quality-point">
-                    <h3>🌾 Premium Sourcing</h3>
-                    <p>We source only the finest spices from trusted farmers and suppliers across India</p>
-                </div>
-                <div class="quality-point">
-                    <h3>🔬 Strict Testing</h3>
-                    <p>Every batch undergoes rigorous laboratory testing for purity and quality</p>
-                </div>
-                <div class="quality-point">
-                    <h3>⚙️ Modern Processing</h3>
-                    <p>We use state-of-the-art grinding and packaging technology to preserve freshness</p>
-                </div>
-                <div class="quality-point">
-                    <h3>📦 Careful Packaging</h3>
-                    <p>Our products are packaged in airtight containers to maintain aroma and flavor</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="cta-section">
-        <div class="container">
-            <h2>Ready to Experience Premium Spices?</h2>
-            <p>Visit our store or order online to get your favorite SMI products delivered to your home</p>
-            <a href="index.html#contact" class="btn btn-primary">Contact Us for Orders</a>
-        </div>
-    </section>
+    
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Shresth Masala Industry (SMI). All rights reserved. | Quality over Quantity.</p>
+            <p>&copy; 2025 Vahin Sweets Industry (VSI). All rights reserved. | My factory smells like sugar heaven, no cap.</p>
         </div>
     </footer>
 </body>
