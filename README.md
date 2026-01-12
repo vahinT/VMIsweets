@@ -1,0 +1,1 @@
+Welcome to the world of pure sweets! VMI promises 100% pure sweets never seen before. our motto is "Quality over Quantity" we have been in a journey for over multiple years hoping to make trust for sweets in the market. - This project is based on work originally by Shresth (@FlameFireGod-real), modified by Vahin.(@vahinT
